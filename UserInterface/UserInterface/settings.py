@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,23 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
 ]
+# Settings for session handling
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'  # Default value, included for clarity
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = False  # If using HTTPS
+SESSION_COOKIE_SAMESITE = 'Lax'
+# Allow multiple sessions per user
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Set to True if you want sessions to expire when browser closes
+
+# Default session for your app
+SESSION_COOKIE_NAME = 'accounts_sessionid'
+SESSION_COOKIE_NAME = 'pages_sessionid'
+
+# Ensure admin uses a different session cookie
+CSRF_COOKIE_NAME = 'csrftoken'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,6 +136,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+#Media Folder Settings
+MEDIA_URL = '/media/'
+MEDIA_ROOT =os.path.join(BASE_DIR / 'media' ) 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -1,3 +1,68 @@
-<html>
-    <h1>Login page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - YourApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!--Custom Style-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full mx-auto p-6">
+            <!-- Logo and Title -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-semibold text-indigo-600">UserInterface</h1>
+                <p class="mt-2 text-gray-600">Welcome back</p>
+            </div>
+            <!-- Login Form -->
+            <div class="bg-white rounded-lg shadow-sm p-8">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Username/Email Input -->
+                    <div class="mb-6">
+                        <input type="text" 
+                               name="username" 
+                               placeholder="Username" 
+                               class="w-full h-12 px-4 border rounded-lg focus:outline-none focus:border-indigo-500"
+                               required>
+                    </div>
+                    
+                    <!-- Password Input -->
+                    <div class="mb-6">
+                        <input type="password" 
+                               name="password" 
+                               placeholder="Password" 
+                               class="w-full h-12 px-4 border rounded-lg focus:outline-none focus:border-indigo-500"
+                               required>
+                    </div>
+
+                    <!-- Form Errors -->
+                    {% if form.errors %}
+                    <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm">
+                        Invalid username or password. Please try again.
+                    </div>
+                    {% endif %}
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full h-12 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200">
+                        Sign In
+                    </button>
+
+                    <!-- Register Link -->
+                    <p class="mt-4 text-center text-sm text-gray-600">
+                        Don't have an account? 
+                        <a href="{% url 'register' %}" class="text-indigo-600 hover:underline">Create one</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
